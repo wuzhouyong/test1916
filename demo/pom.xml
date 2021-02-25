@@ -13,6 +13,7 @@
     <artifactId>demo</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+
     <name>demo</name>
     <description>异常任务交接</description>
 
