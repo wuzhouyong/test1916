@@ -1,0 +1,81 @@
+# 基础配置文件
+server:
+  port: 8989
+  servlet:
+    context-path: /api
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+    # post提交数据最大大小，设置为0不限制
+    max-http-post-size: 0
+  # ms 单位，tomcat 超时时间，默认10秒
+  connection-timeout: 60000
+
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  profiles:
+    active: prod
+  application:
+    name: SpringBootApiStarter
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  ##上传文件大小限制
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 30MB
+      max-request-size: 30MB
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+############################## mybatis-plus config ##############################
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**Mapper.xml
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      insert-strategy: ignored
+      update-strategy: ignored
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  configuration:
+    jdbc-type-for-null: 'null' #注意：单引号
+
+############################## spring-boot-api config ##############################
+spring-boot-api:
+  # jwt配置
+  jwt:
+    # 是否开启token验证（默认关闭）
+    enabled: false
+    # 加密secret
+    secret: sS8yq0!gukLUZ^r$UQgJ2Cd&@3DkT%J96A3XScNwYE*1^SkoV
+    # 默认过期时间7天，单位：天
+    expire-day: 7
+    # access-token
+    access-token: Access-Token
+    # submit-token
+    submit-token: Submit-Token
+  # 授权码
+  autoIdempotent:
+    # 是否开启授权码验证（默认关闭）
+    enabled: false
+    # auth-code
+    auth-code: Auth-Code
+    # 授权码数组（base64）
+    codes: YmFzZS1hdXRoLWNvZGUtYQ==,YmFzZS1hdXRoLWNvZGUtYg==

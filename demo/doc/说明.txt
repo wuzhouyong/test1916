@@ -1,0 +1,5 @@
+打包后将jar名字更改为api.jar 然后window任意目录启动
+startup-dev.bat 开发环境
+startup-test.bat 测试环境
+startup-prod.bat 正式环境
+startup-dev-port-12345.bat 开发环境（启动时指定端口）

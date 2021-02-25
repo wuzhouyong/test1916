@@ -1,0 +1,14 @@
+# 本地环境配置文件
+spring:
+  datasource:
+    hikari:
+      connection-timeout: 30000
+      max-lifetime: 600000
+      pool-name: XCodeHikariCP
+      minimum-idle: 1
+      maximum-pool-size: 1
+      idle-timeout: 30000
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://134.175.78.179:3306/ry-vue?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&characterEncoding=utf8
+    username: root
+    password: abc123...

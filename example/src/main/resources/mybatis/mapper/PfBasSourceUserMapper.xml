@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.enterprise.mapper.PfBasSourceUserMapper">
+
+    <resultMap type="PfBasSourceUser" id="PfBasSourceUserResult">
+        <result property="sourceUserId" column="source_user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="password" column="password"/>
+        <result property="userFlag" column="user_flag"/>
+        <result property="memo" column="memo"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="loginIp" column="login_ip"/>
+        <result property="loginDate" column="login_date"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isBinding" column="is_binding"/>
+        <result property="mobile" column="mobile"/>
+    </resultMap>
+
+    <sql id="selectPfBasSourceUserVo">
+        select source_user_id, user_name, nick_name,source_id,password, user_flag, memo, del_flag, login_ip,
+        login_date, create_by, create_time, update_by, update_time,is_binding,mobile
+        from pf_bas_source_user
+    </sql>
+
+    <select id="selectPfBasSourceUserList" parameterType="PfBasSourceUser" resultMap="PfBasSourceUserResult">
+        <include refid="selectPfBasSourceUserVo"/>
+        <where>
+            <if test="userName != null ">and user_name like concat('%', #{userName}, '%')</if>
+            <if test="nickName != null ">and nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="userFlag != null ">and user_flag like concat('%', #{userFlag}, '%')</if>
+            <if test="memo != null ">and memo like concat('%', #{memo}, '%')</if>
+            <if test="loginIp != null ">and login_ip like concat('%', #{loginIp}, '%')</if>
+            <if test="loginDate != null ">and login_date like concat('%', #{loginDate}, '%')</if>
+        </where>
+    </select>
+</mapper>

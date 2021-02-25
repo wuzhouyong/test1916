@@ -1,0 +1,40 @@
+server:
+  port: 8110
+  servlet:
+    encoding:
+      force: true
+      enabled: true
+      charset: UTF-8
+    context-path: /
+
+spring:
+  profiles:
+    active: prod
+  mvc:
+    throw-exception-if-no-handler-found: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB
+  web:
+    resources:
+      add-mappings: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      indent_output: true
+    deserialization:
+      fail_on_unknown_properties: false
+    mapper:
+      accept_case_insensitive_properties: true
+      accept_case_insensitive_values: true
+      accept_case_insensitive_enums: true
+      auto_detect_is_getters: false
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+
+token:
+  - fcxEtliDYmyX9ncgY6pUE84gTe4d4qhn

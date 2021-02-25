@@ -1,0 +1,99 @@
+package ${package.Controller};
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+    @Autowired
+    public ${table.serviceName} ${table.entityPath}Service;
+
+    /**
+     * $!{table.comment}列表（分页）
+     */
+    @GetMapping("/page/list")
+    public ResponseResult ${table.entityPath}PageList(${entity} ${table.entityPath}) {
+        return ResultGenerator.genSuccessResult(${table.entityPath}Service.${table.entityPath}PageList(${table.entityPath}));
+    }
+
+    /**
+    * $!{table.comment}列表
+    */
+    @GetMapping("/list")
+    public ResponseResult ${table.entityPath}List(${entity} ${table.entityPath}) {
+        return ResultGenerator.genSuccessResult(${table.entityPath}Service.${table.entityPath}List(${table.entityPath}));
+    }
+
+    /**
+     * 获取$!{table.comment}详情
+     */
+    @GetMapping("/{#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end}")
+    public ResponseResult ${table.entityPath}Info(@PathVariable #foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end) {
+        return ResultGenerator.genSuccessResult(${table.entityPath}Service.${table.entityPath}Info(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end));
+    }
+
+    /**
+     * 新增$!{table.comment}
+     */
+    @PostMapping
+    public ResponseResult save${entity}(@RequestBody ${entity} ${table.entityPath}) {
+        ${table.entityPath}Service.save${entity}(${table.entityPath});
+        return ResultGenerator.genSuccessResult();
+    }
+
+    /**
+     * 修改$!{table.comment}
+     */
+    @PutMapping
+    public ResponseResult update${entity}(@RequestBody ${entity} ${table.entityPath}) {
+        ${table.entityPath}Service.update${entity}(${table.entityPath});
+        return ResultGenerator.genSuccessResult();
+    }
+
+    /**
+     * 删除$!{table.comment}
+     */
+    @DeleteMapping("/{#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}S#end#end}")
+    public ResponseResult remove${entity}ByIds(@PathVariable #foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType}[]${field.propertyName}s#end#end) {
+        ${table.entityPath}Service.remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}s#end#end);
+        return ResultGenerator.genSuccessResult();
+    }
+}
+
+#end

@@ -1,0 +1,1 @@
+java -jar -Dspring.profiles.active=prod api.jar --server.port=1456
