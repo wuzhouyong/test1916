@@ -6,6 +6,7 @@ import com.teamoneit.warn.entity.JsonResult;
 import com.teamoneit.warn.entity.WarnParam;
 import com.teamoneit.warn.entity.WarnResult;
 import com.teamoneit.warn.service.IWarnService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
