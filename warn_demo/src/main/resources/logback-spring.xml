@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 根节点,logback的全局配置,包含3个属性
+    scan:当文件发生变更时是否重载,默认值ture
+    scanPeriod：监测文件的间隔时间，即每隔多少时间扫描一次配置文件 仅当scan=true时生效，默认间隔时间1min，如果不写单位默认是毫秒;
+    debug：是否为debug模式，为true时会打印出logack内部日志，便于查看logback实时信息，默认值false
+ -->
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+    <!-- 上下文名称,每个logger都关联到上下文,默认值为default, 设置之后不可动态修改,用于区分不同应用程序的记录 -->
+    <contextName>logback</contextName>
+
+    <!-- 日志存放路径 -->
+    <property name="log.path" value="/data/warn/logs"/>
+    <!-- 日志输出格式 -->
+    <property name="log.pattern" value="%contextName %d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n"/>
+
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- ThresholdFilter: 阀值过滤器; 过滤掉低于阀值的日志，当日志级别等于或高于阀值，过滤器返回NEUTRAL，否则直接返回DENY -->
+        <!-- LevelFilter: 级别过滤器; 过滤掉非配置等级的日志，只有等于当前级别时才会处理 -->
+        <!--有多个过滤器时，按照配置顺序执行，执行的是最后的过滤器-->
+        <!--如果没设定过滤器，则通过logger来控制，默认是阀值过滤器级别大于设定级别就会打印，如果配置了过滤器，没有logger/root则也无效-->
+        <!--如果设定过滤器，设定阀值过滤器:WARN logger/root 为info则以高级别为准，就是warn有效-->
+        <!--如果设定阀值过滤:info,logger/root设定warn，则以高级别为准，就是warn有效-->
+        <!--如果设定阀值过滤:info,logger/root设定info，则以高级别为准，就是info有效-->
+        <!--所以设定打印级别一般是在过滤器里面设定高的，在logger里面设定底的-->
+        <!--一定要有appender-ref，不管root还是logger，一般控制台很少设定过滤器-->
+
+        <!-- ThresholdFilter: 阀值过滤器; 过滤掉低于阀值的日志，当日志级别等于或高于阀值,过滤器返回NEUTRAL,否则直接返回DENY -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+        <!-- 子节点target,日志输出的对象 System.out(默认)或System.err -->
+        <target>System.out</target>
+    </appender>
+
+    <!-- info日志输出 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 子节点produent，是否为安全写入模式，为ture则日志会被安全的写入文件，即使其他FileAppender同时做写入操作，效率低，默认值false -->
+        <prudent>false</prudent>
+        <!--<File>D:/home/log/stdout.log</File> //路径可以写死也可以写成相对项目的路径，会找到项目盘中，在盘中自动创建文件夹-->
+        <file>${log.path}/info.log</file>
+
+        <!-- SizeAndTimeBasedRollingPolicy: 同时按照每天和大小来分割日志文件,这种方式pattern中必须包含%d和%i-->
+        <!-- RollingFileAppender的file节点可有可无 , 如果同时配置了两个节点的话,日志文件会归档为两套(一套按日期分割 , 一套整个写入file指定的文件)
+         {yyyy-MM-dd}如果为时间戳，那么每秒回有一个日志文件产生，这个日志文件是跟随变量而来，目前是每天一个日志文件，加上一个总的文件error.log-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${log.path}/info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--日志文件大小限制10M-->
+            <MaxFileSize>10MB</MaxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- LevelFilter: 级别过滤器; 过滤掉非配置等级的日志，只有等于当前级别时才会处理-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--记录返回响应状态-->
+    <appender name="file_response" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <prudent>false</prudent>
+        <file>${log.path}/response.log</file>
+
+        <!-- SizeAndTimeBasedRollingPolicy: 同时按照每天和大小来分割日志文件,这种方式pattern中必须包含%d和%i-->
+        <!-- RollingFileAppender的file节点可有可无 , 如果同时配置了两个节点的话,日志文件会归档为两套(一套按日期分割 , 一套整个写入file指定的文件)
+         {yyyy-MM-dd}如果为时间戳，那么每秒回有一个日志文件产生，这个日志文件是跟随变量而来，目前是每天一个日志文件，加上一个总的文件error.log-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${log.path}/response.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>30</MaxHistory>
+            <!--日志文件大小限制10M-->
+            <MaxFileSize>10MB</MaxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+        <!-- LevelFilter: 级别过滤器; 过滤掉非配置等级的日志，只有等于当前级别时才会处理-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>warn</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- info日志输出 -->
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <prudent>false</prudent>
+        <!--file节点可有可无-->
+        <file>${log.path}/error.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <!-- TimeBasedRollingPolicy:根据时间来分割日志文件，每天生成一个，这样可能每天的日志文件的大小不固定,%d默认是{yyyy-MM-dd}格式
+             RollingFileAppender的file节点可有可无 , 如果同时配置了两个节点的话,日志文件会归档为两套(一套按日期分割 , 一套整个写入file指定的文件)
+             {yyyy-MM-dd}如果为时间戳，那么每秒回有一个日志文件产生，这个日志文件是跟随变量而来，目前是每天一个日志文件，加上一个总的文件error.log-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志文件保留最大时间滚动周期，比如当filaNamePattern中%d以为dd结尾时，则保留30天-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 用户访问日志输出,要在打印的文件中添加@Slf4j，并log.error(ex.getMessage())-->
+    <appender name="timer" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/timer.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.path}/timer.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 系统模块日志级别控制 将打印信息传递到上一级,控制com.teamoneit.warn包下的所有类的日志的打印，
+         没用设置打印级别，所以继承他的上级<root>的日志级别“info”；
+         没有设置appender，此loger本身不打印任何信息。
+         也就是com.teamoneit.warn包下的类直接传递给root处理,按照root下的appender-ref去打印到日志文件中。
+         属性name:用来指定受此loger约束的某一个包或者具体的某一个类。
+    -->
+    <logger name="com.teamoneit.warn"/>
+
+    <!-- Spring日志级别控制,只要是这个包下的类都会按照root来打印输出，但级别是warn,并不是root的级别，而是那个级别高就按照那个级别
+         也就是org.springframework包下所有的内容按照warn级别来打印到root目录下的appender-ref-->
+    <logger name="org.springframework" level="warn"/>
+
+    <!--当执行TimerManger类时，先执行<logger name="TimerManger">
+        将级别为“INFO”及大于“INFO”的日志信息交给此loger指定的名为“timer”的appender处理，在控制台中打出日志
+        设置addtivity=false，不将此loger的打印信息向上级<logger name="warn"/>传递；
+        <logger name="warn"/>未接到任何打印信息，当然也不会给它的上级root传递任何打印信息-->
+    <!--如果将additivity="false"改为additivity="true">结果是日志会打印两次，但会做筛选，只输出高级别的日志信息
+        因为打印信息向上级传递，logger本身打印一次，root接到后又打印一次,也因此logger很少设置appender-ref，一般设置包名
+        如果设置了appender-ref，则会设置additivity="false"
+        比如:logger打印级别为info,而root打印级别为debug，则只会打印两次info,会根据那个级别高打印那个级别，只打印级别高的日志信息-->
+    <!--类的全路径 -->
+    <logger name="com.teamoneit.warn.common.timer.TimerManger" level="INFO" additivity="false">
+        <appender-ref ref="timer"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!--系统操作日志-->
+    <root level="info">
+        <appender-ref ref="file_info"/>
+        <appender-ref ref="file_error"/>
+    </root>
+
+    <!--系统用户操作日志，自定义name
+        在需要的地方获取到logger名字:private static final Logger sys_user_logger = LoggerFactory.getLogger("file_response");
+        然后 file_response.info(s.toString()),打印响应状态信息到日志
+        如果此处将ref="file_response"改为console，属性名字也改成console，不会向父类传递，不会打印两次，也没有打印日志文本显示
+        而且无论是否设置additivity="false" 结果还是一样，没有显示，只显示logo图标
+        是因为此处是指定名字，只有在对应file_response名字上才会显示打印的信息,此处会在控制台打印，说明向父级传递了
+        如果当前类既有自定义异常，也有@Slf4j注解，那么会重复打印，会把自定义name打印内容，根据name="com.teamoneit.warn"打印到file_info文件里面
+        只能根据设定异常级别来设定打印那个文件中，自定义name设定warn，@Slf4j注解设定info，就不会错乱
+    -->
+    <logger name="file_response" level="info">
+        <appender-ref ref="file_response"/>
+    </logger>
+
+    <!--root将级别为“INFO”及大于“INFO”的日志信息交给已经配置好的名为“console”的appender处理
+       “console”appender将信息打印到控制台； -->
+    <!--root也是元素，但是它是根loger。只有一个level属性，应为已经被命名为"root"，一般控制台会单独创建root-->
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+
+</configuration>

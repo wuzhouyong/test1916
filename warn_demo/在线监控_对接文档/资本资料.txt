@@ -1,0 +1,24 @@
+指挥调度平台-任务对接
+
+任务API对接IP-生产： 19.104.43.66
+任务API对接IP-测试： 19.104.43.65
+任务API对接PORT：8014
+
+在线监控:
+http://19.104.43.66:8014/auth/realms/cad/protocol/openid-connect/token
+
+东莞市污染源在线监控平台  
+client_id：r_cad_back_end
+client_secret：ed98130b-368c-4320-8014-f9830b5b16d2
+
+东莞市环境执法管理及移动执法系统（19.106.165.192）
+client_id：z_cad_back_end
+client_secret：111d4ebe-2c2b-42e7-9c10-3808be672ab8
+
+{
+"taskId":"A2AE195E940F4262E053D00AA8C0181A",
+"executor":"吴周永",
+"completionTime":"2021-03-24",
+"taskFeedback":"异常任务已完成，处理结果为异常已解决",
+"taskStatus": "FINISHED"
+}

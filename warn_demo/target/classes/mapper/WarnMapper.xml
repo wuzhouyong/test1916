@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.teamoneit.warn.mapper.WarnMapper">
+
+    <select id="getWarnListByTag" parameterType="string" resultType="com.teamoneit.warn.entity.WarnResult">
+        select distinct w.id taskId,s.source_id targetId,s.full_name targetName,
+        br.town_street_full_name townStreetFullName,br.town_street_code townStreetCode,
+        trunc(s.longitude,4)longitude,trunc(s.latitude,4)latitude,w.warn_level level1,w.warn_type warnType,
+        d.dict_label brief,to_char(w.date_created,'yyyy-mm-dd hh24:mi:ss') createTime,w.created_by creatorName,
+        w.warn_desc abnormalInfo,to_char(wp.procdate,'yyyy-mm-dd hh24:mi:ss') completionTime,
+        wp.procmemo taskFeedback, wp.procusername executor, wp.exceptiondesc detail,to_number(d.css_class) taskClassify,
+        w.proc_state procState,case when w.proc_state = 6 then 'FINISHED' else 'INPROGRESS' end taskStatus
+        from ${key}.dat_warnmsgheads w
+        inner join pf_bas_source s on s.source_id = w.source_id and s.is_deleted = 0
+        left join pf_bas_region_ref br on s.town_code=br.un_region_code and br.is_deleted=0
+        left join sys_dict_data d on w.warn_type=d.dict_value and dict_type = '${valu}'
+        left join ${key}.dat_warnprocesses wp on w.id=wp.warnid and wp.is_deleted=0
+        where w.is_deleted = 0 and trunc(w.date_created) >= to_date('2021-01-01','yyyy-mm-dd')
+        and s.source_id != '999999999999999'
+        and not exists (select 1 from dat_warn_Log where is_push=1 and taskId=w.id )
+        order by w.id
+    </select>
+
+    <select id="getWarnListByState" parameterType="string" resultType="com.teamoneit.warn.entity.WarnStatus">
+        select distinct w.id taskId,to_char(wp.procdate,'yyyy-mm-dd hh24:mi:ss') completionTime,
+        wp.procmemo taskFeedback, wp.procusername executor,
+        case when w.proc_state = 6 then 'FINISHED' else 'INPROGRESS' end taskStatus
+        from ${key}.dat_warnmsgheads w
+        inner join pf_bas_source s on s.source_id = w.source_id and s.is_deleted = 0
+        left join pf_bas_region_ref br on s.town_code=br.un_region_code and br.is_deleted=0
+        left join sys_dict_data d on w.warn_type=d.dict_value and dict_type = #{valu}
+        left join ${key}.dat_warnprocesses wp on w.id=wp.warnid and wp.is_deleted=0
+        where w.is_deleted = 0 and trunc(w.date_created) >= to_date('2021-01-01','yyyy-mm-dd')
+        and s.source_id != '999999999999999'and w.proc_state = 6
+        and exists (
+        select 1 from dat_warn_Log where is_push=1 and status='FINISHED' and is_status=0 and taskId=w.id
+        )
+        order by w.id
+    </select>
+
+    <update id="updateWarnStatus" parameterType="com.teamoneit.warn.entity.WarnStatus">
+       update dat_warn_Log set is_status=1 where status='FINISHED' and is_push=1 and taskId=#{taskId}
+    </update>
+
+    <insert id="insertWarnStatus" parameterType="list">
+        insert all
+        <foreach collection="list" item="item" index="index" separator="">
+            into dat_warn_Log (taskId, is_push, status)
+            VALUES
+            ( #{item.taskId,jdbcType=VARCHAR}, #{item.level1,jdbcType=INTEGER},
+            #{item.taskStatus,jdbcType=VARCHAR} )
+        </foreach>
+        select 1 from dual
+    </insert>
+
+    <select id="selectWarnStatusList" parameterType="list" resultType="string">
+        select taskId from dat_warn_Log where taskid in
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+    <select id="selectWarnStatus" parameterType="com.teamoneit.warn.entity.WarnStatus" resultType="string">
+        select taskId from dat_warn_Log where taskId=#{taskId} and is_status=1 and status='FINISHED' and is_push=1
+    </select>
+
+</mapper>

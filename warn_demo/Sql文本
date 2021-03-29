@@ -1,0 +1,36 @@
+
+         create table dat_warn_Log(
+         taskId VARCHAR2(250) primary key,
+         is_push number(3) default 0,
+         status VARCHAR2(50) default 'INPROGRESS',
+         is_status number(3) default 0,
+         dateupdated date default sysdate)
+        COMMENT ON TABLE dat_warn_Log IS '同步指挥调度异常任务表';
+        COMMENT ON COLUMN dat_warn_Log.taskId IS '异常任务主键';
+        COMMENT ON COLUMN dat_warn_Log.is_push IS '是否推送成功 0:否 1:是';
+        COMMENT ON COLUMN dat_warn_Log.status IS '中心平台异常是否已处理完成 默认:INPROGRESS/FINISHED';
+        COMMENT ON COLUMN dat_warn_Log.is_status IS '修改(指挥调度平台)状态是否成功 0:否 1:是';
+        COMMENT ON COLUMN dat_warn_Log.push_txt IS '推送成功/失败原因，默认推送成功';
+
+             @Transactional
+            public boolean uploadData1(List<WarnResult> warnResultList) throws Exception {
+                Map<String, Object> paramMap = new HashMap<String, Object>();
+                paramMap.put("client_id", "r_cad_back_end");
+                paramMap.put("client_secret", "ed98130b-368c-4320-8014-f9830b5b16d2");
+                paramMap.put("grant_type", "client_credentials");
+                paramMap.put("scope", "offline_access");
+                String jsonString = HttpClientUtils.doPost("http://19.104.43.66:8014/auth/realms/cad/protocol/openid-connect/token", paramMap);
+
+                //使用fastjson来解析json格式的字符串
+                JSONObject jsonObject = JSONObject.parseObject(jsonString);
+                String token = jsonObject.getString("access_token");
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer \n" + token);
+                headers.put("Content-Type", "application/json");
+                headers.put("Accept-Language", "zh-CN,zh;q=0.9");
+                headers.put("Accept-Encoding", "gzip, deflate, br");
+                String s = JSON.toJSONString(warnResultList);//将数据格式变成字符串的格式,也就是参数的格式
+                String string = HttpClientUtils.sendPost("http://19.104.43.66:8014/api/leanworkflow/v1/task-info", headers, s);
+                System.out.println(string); //能正常执行，能批量执行
+                return false;
+            }
