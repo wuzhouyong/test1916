@@ -22,7 +22,7 @@ public class TimerManger {
     //第一次启动延迟1分钟启动，启动之后方法结束延迟15分钟启动 1000毫秒就是1秒
     // @Scheduled(cron = "0 0 * * * ? *")
 //    @Scheduled(initialDelay = 1000 * 60 * 1, fixedDelay = 1000 * 60 * 15)
-//    @Async
+    @Async
     public void pushExceptionTask() {
         try {
             log.info("推送任务开始");

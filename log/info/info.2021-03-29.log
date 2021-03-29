@@ -1,0 +1,58 @@
+2021-03-29 21:24:43 INFO  restartedMain com.teamone.DemoApplication Starting DemoApplication on DESKTOP-T8REHC1 with PID 49268 (E:\working\template\demo\target\classes started by M_Yong in E:\working\template)
+2021-03-29 21:24:43 INFO  restartedMain com.teamone.DemoApplication The following profiles are active: prod
+2021-03-29 21:24:43 INFO  restartedMain org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-29 21:24:43 INFO  restartedMain org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-29 21:24:45 INFO  restartedMain org.springframework.boot.web.embedded.tomcat.TomcatWebServer Tomcat initialized with port(s): 8989 (http)
+2021-03-29 21:24:45 INFO  restartedMain org.apache.coyote.http11.Http11NioProtocol Initializing ProtocolHandler ["http-nio-8989"]
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.StandardService Starting service [Tomcat]
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.StandardEngine Starting Servlet Engine: Apache Tomcat/9.0.13
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.AprLifecycleListener Loaded APR based Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.AprLifecycleListener APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.AprLifecycleListener APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.AprLifecycleListener OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2021-03-29 21:24:45 INFO  restartedMain org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/api] Initializing Spring embedded WebApplicationContext
+2021-03-29 21:24:45 INFO  restartedMain org.springframework.web.context.ContextLoader Root WebApplicationContext: initialization completed in 1467 ms
+2021-03-29 21:24:45 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource detect P6SPY plugin and enabled it
+2021-03-29 21:24:45 INFO  restartedMain com.zaxxer.hikari.HikariDataSource master - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource master - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource outwater - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource outwater - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource lwjh - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource lwjh - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource guocheng - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource guocheng - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource voc - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource voc - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource youyan - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource youyan - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource jiayou - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource jiayou - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource qixiu - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource qixiu - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource jinshu - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource jinshu - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource lingxing - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource lingxing - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource zaozhi - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource zaozhi - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource hbonline - Starting...
+2021-03-29 21:24:46 INFO  restartedMain com.zaxxer.hikari.HikariDataSource hbonline - Start completed.
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [outwater] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [qixiu] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [lingxing] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [guocheng] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [zaozhi] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [youyan] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [jiayou] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [hbonline] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [voc] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [jinshu] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [master] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource - load a datasource named [lwjh] success
+2021-03-29 21:24:46 INFO  restartedMain com.baomidou.dynamic.datasource.DynamicRoutingDataSource dynamic-datasource initial loaded [12] datasource,primary datasource named [master]
+2021-03-29 21:24:47 INFO  restartedMain org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-29 21:24:47 INFO  restartedMain org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer LiveReload server is running on port 35729
+2021-03-29 21:24:47 INFO  restartedMain org.apache.coyote.http11.Http11NioProtocol Starting ProtocolHandler ["http-nio-8989"]
+2021-03-29 21:24:47 INFO  restartedMain org.apache.tomcat.util.net.NioSelectorPool Using a shared selector for servlet write/read
+2021-03-29 21:24:47 INFO  restartedMain org.springframework.boot.web.embedded.tomcat.TomcatWebServer Tomcat started on port(s): 8989 (http) with context path '/api'
+2021-03-29 21:24:47 INFO  restartedMain com.teamone.DemoApplication Started DemoApplication in 4.114 seconds (JVM running for 5.556)
