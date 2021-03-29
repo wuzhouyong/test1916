@@ -23,5 +23,6 @@ public class WarnController {
         param.setTagHeadId("1012");
         IPage<WarnResult> list = service.getWarnList(prefix, page, param);
         return JsonResult.success(list);
+
     }
 }
