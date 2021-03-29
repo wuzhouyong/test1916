@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -25,43 +26,43 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 #if(${kotlin})
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
 
-}
+        }
 #else
-public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
-    @Autowired
-    public ${table.mapperName} ${table.entityPath}Mapper;
+        public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}>implements ${table.serviceName} {
+        @Autowired
+        public ${table.mapperName} ${table.entityPath}Mapper;
 
-    @Override
-    public IPage<${entity}> ${table.entityPath}PageList(${entity} ${table.entityPath}) {
-        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
-        IPage<${entity}> page = new Page<>(${table.entityPath}.getPageNum(), ${table.entityPath}.getPageSize());
-        return ${table.entityPath}Mapper.selectPage(page, queryWrapper);
-    }
+        @Override
+        public IPage<${entity}> ${table.entityPath}PageList(${entity} ${table.entityPath}){
+        QueryWrapper<${entity}>queryWrapper=new QueryWrapper<>();
+        IPage<${entity}>page=new Page<>(${table.entityPath}.getPageNum(), ${table.entityPath}.getPageSize());
+        return ${table.entityPath}Mapper.selectPage(page,queryWrapper);
+        }
 
-    @Override
-    public List<${entity}> ${table.entityPath}List(${entity} ${table.entityPath}) {
-        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+        @Override
+        public List<${entity}> ${table.entityPath}List(${entity} ${table.entityPath}){
+        QueryWrapper<${entity}>queryWrapper=new QueryWrapper<>();
         return ${table.entityPath}Mapper.selectList(queryWrapper);
-    }
+        }
 
-    @Override
-    public ${entity} ${table.entityPath}Info(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end) {
+        @Override
+        public ${entity} ${table.entityPath}Info(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end){
         return ${table.entityPath}Mapper.selectById(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end);
-    }
+        }
 
-    @Override
-    public void save${entity}(${entity} ${table.entityPath}) {
-        ${table.entityPath}Mapper.insert(${table.entityPath});
-    }
+        @Override
+        public void save${entity}(${entity} ${table.entityPath}){
+    ${table.entityPath}Mapper.insert(${table.entityPath});
+        }
 
-    @Override
-    public void update${entity}(${entity} ${table.entityPath}) {
-        ${table.entityPath}Mapper.updateById(${table.entityPath});
-    }
+        @Override
+        public void update${entity}(${entity} ${table.entityPath}){
+    ${table.entityPath}Mapper.updateById(${table.entityPath});
+        }
 
-    @Override
-    public void remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} [] ${field.propertyName}s#end#end) {
-        ${table.entityPath}Mapper.deleteBatchIds(Arrays.asList(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}s#end#end));
-    }
-}
+        @Override
+        public void remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} [] ${field.propertyName}s#end#end){
+    ${table.entityPath}Mapper.deleteBatchIds(Arrays.asList(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}s#end#end));
+        }
+        }
 #end

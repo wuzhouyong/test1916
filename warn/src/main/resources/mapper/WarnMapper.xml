@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.teamoneit.warn.mapper.WarnMapper">
-    <select id="getWarnList" parameterType="com.teamoneit.warn.entity.WarnParam" resultType="com.teamoneit.warn.entity.WarnResult">
+    <select id="getWarnList" parameterType="com.teamoneit.warn.entity.WarnParam"
+            resultType="com.teamoneit.warn.entity.WarnResult">
         select distinct w.id, s.source_id, s.full_name source_name, s.town_code, s.town_name, cp.acquisition_brand,
         c.construction_unit, c.construction_status,
         w.warn_type, w.warn_level, l.dict_label warn_level_name,
@@ -15,41 +16,41 @@
         left join basecenter.sys_dict_data l on l.dict_value = w.warn_level and l.dict_type = 'ty_warn_level'
         left join basecenter.sys_dict_data p on p.dict_value = w.proc_state and p.dict_type = 'ty_proc_state'
         where w.is_deleted = 0 and c.tag_head_id = #{param.tagHeadId}
-<!--        <if test="sourceId != null">-->
-<!--            and s.source_id = #{sourceId}-->
-<!--        </if>-->
-<!--        <if test="sourceName != null">-->
-<!--            and s.full_name like '%' || #{sourceName} || '%'-->
-<!--        </if>-->
-<!--        <if test="townCode != null">-->
-<!--            and s.town_code = #{townCode}-->
-<!--        </if>-->
-<!--        <if test="acquisitionBrand != null">-->
-<!--            and cp.acquisition_brand like '%' || #{acquisitionBrand} || '%'-->
-<!--        </if>-->
-<!--        <if test="constructionUnit != null">-->
-<!--            and c.construction_unit like '%' || #{constructionUnit} || '%'-->
-<!--        </if>-->
-<!--        <if test="constructionStatus != null">-->
-<!--            and c.construction_status = #{constructionStatus}-->
-<!--        </if>-->
-<!--        <if test="warnType != null">-->
-<!--            and w.warn_type = #{warnType}-->
-<!--        </if>-->
-<!--        <if test="warnLevel != null">-->
-<!--            and w.warn_level = #{warnLevel}-->
-<!--        </if>-->
-<!--        <if test="procState != null">-->
-<!--            and w.proc_state = #{procState}-->
-<!--        </if>-->
-<!--        <if test="procStates != null and procStates.size() > 0">-->
-<!--            and w.proc_state in-->
-<!--            <foreach collection="procStates" item="procState" open="(" separator="," close=")">-->
-<!--                #{procState}-->
-<!--            </foreach>-->
-<!--        </if>-->
-<!--        <if test="startDate != null and endDate != null">-->
-<!--            and w.start_date >= #{startDate} and w.start_date &lt; #{endDate}-->
-<!--        </if>-->
+        <!--        <if test="sourceId != null">-->
+        <!--            and s.source_id = #{sourceId}-->
+        <!--        </if>-->
+        <!--        <if test="sourceName != null">-->
+        <!--            and s.full_name like '%' || #{sourceName} || '%'-->
+        <!--        </if>-->
+        <!--        <if test="townCode != null">-->
+        <!--            and s.town_code = #{townCode}-->
+        <!--        </if>-->
+        <!--        <if test="acquisitionBrand != null">-->
+        <!--            and cp.acquisition_brand like '%' || #{acquisitionBrand} || '%'-->
+        <!--        </if>-->
+        <!--        <if test="constructionUnit != null">-->
+        <!--            and c.construction_unit like '%' || #{constructionUnit} || '%'-->
+        <!--        </if>-->
+        <!--        <if test="constructionStatus != null">-->
+        <!--            and c.construction_status = #{constructionStatus}-->
+        <!--        </if>-->
+        <!--        <if test="warnType != null">-->
+        <!--            and w.warn_type = #{warnType}-->
+        <!--        </if>-->
+        <!--        <if test="warnLevel != null">-->
+        <!--            and w.warn_level = #{warnLevel}-->
+        <!--        </if>-->
+        <!--        <if test="procState != null">-->
+        <!--            and w.proc_state = #{procState}-->
+        <!--        </if>-->
+        <!--        <if test="procStates != null and procStates.size() > 0">-->
+        <!--            and w.proc_state in-->
+        <!--            <foreach collection="procStates" item="procState" open="(" separator="," close=")">-->
+        <!--                #{procState}-->
+        <!--            </foreach>-->
+        <!--        </if>-->
+        <!--        <if test="startDate != null and endDate != null">-->
+        <!--            and w.start_date >= #{startDate} and w.start_date &lt; #{endDate}-->
+        <!--        </if>-->
     </select>
 </mapper>

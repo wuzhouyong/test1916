@@ -11,5 +11,6 @@ import java.util.List;
 @Mapper
 public interface WarnMapper {
     List<WarnResult> getWarnList(WarnParam param);
+
     IPage<WarnResult> getWarnList(Page<?> page, WarnParam param);
 }

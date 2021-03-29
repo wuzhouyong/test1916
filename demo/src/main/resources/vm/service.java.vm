@@ -18,16 +18,16 @@ import java.util.List;
 interface ${table.serviceName} : ${superServiceClass}<${entity}>
 #else
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
-    IPage<${entity}> ${table.entityPath}PageList(${entity} ${table.entityPath});
+        IPage<${entity}> ${table.entityPath}PageList(${entity} ${table.entityPath});
 
-    List<${entity}> ${table.entityPath}List(${entity} ${table.entityPath});
+        List<${entity}> ${table.entityPath}List(${entity} ${table.entityPath});
 
     ${entity} ${table.entityPath}Info(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end);
 
-    void save${entity}(${entity} ${table.entityPath});
+        void save${entity}(${entity} ${table.entityPath});
 
-    void update${entity}(${entity} ${table.entityPath});
+        void update${entity}(${entity} ${table.entityPath});
 
-    void remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} [] ${field.propertyName}s#end#end);
-}
+        void remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} [] ${field.propertyName}s#end#end);
+        }
 #end

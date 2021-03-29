@@ -6,9 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author wzy
@@ -25,5 +26,5 @@ public interface PfBasTagHeadService extends IService<PfBasTagHead> {
 
     void updatePfBasTagHead(PfBasTagHead pfBasTagHead);
 
-    void removePfBasTagHeadByIds(String [] tagHeadIds);
+    void removePfBasTagHeadByIds(String[] tagHeadIds);
 }

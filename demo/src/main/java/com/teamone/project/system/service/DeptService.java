@@ -17,5 +17,5 @@ public interface DeptService extends IService<Dept> {
 
     void updateDept(Dept dept);
 
-    void removeDeptByIds(Long [] deptIds);
+    void removeDeptByIds(Long[] deptIds);
 }

@@ -2,7 +2,9 @@ package com.teamone.project.domain;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
+
 import com.teamone.project.system.domain.entity.PageRequest;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
@@ -10,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wzy
@@ -21,7 +23,7 @@ import lombok.EqualsAndHashCode;
 @TableName("PF_BAS_TAG_HEAD")
 public class PfBasTagHead extends PageRequest {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @TableId("TAG_HEAD_ID")
     private String tagHeadId;

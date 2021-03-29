@@ -45,7 +45,7 @@ public class OracleGenerator {
      * mysql -uroot -proot -S  -N -e "select table_name from information_schema.tables where table_schema='security-rbac';"|awk '{print "\""$1"\","}'
      */
     final static String[] tables = {
-            "PF_BAS_TAG_HEAD"
+            "DAT_INSPECT_STAT"
     };
 
     /**
@@ -86,7 +86,7 @@ public class OracleGenerator {
         int start = path.indexOf(substring) + substring.length() + 1;
         int end = path.indexOf("/", start);
         String tempPath = path.substring(start, end);  //项目名  demo
-        gc.setOutputDir(projectPath + "/"+tempPath+"/src/main/java");
+        gc.setOutputDir(projectPath + "/" + tempPath + "/src/main/java");
         gc.setAuthor("wzy");
         gc.setOpen(false);
         gc.setServiceName("%sService");

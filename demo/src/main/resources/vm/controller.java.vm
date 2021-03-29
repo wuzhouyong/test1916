@@ -36,64 +36,64 @@ import ${superControllerClassPackage};
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 
 #else
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
-    @Autowired
-    public ${table.serviceName} ${table.entityPath}Service;
+    #if(${superControllerClass})
+    public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+    public class ${table.controllerName} {
+    #end
+@Autowired
+public ${table.serviceName} ${table.entityPath}Service;
 
-    /**
-     * $!{table.comment}列表（分页）
-     */
-    @GetMapping("/page/list")
-    public ResponseResult ${table.entityPath}PageList(${entity} ${table.entityPath}) {
+/**
+ * $!{table.comment}列表（分页）
+ */
+@GetMapping("/page/list")
+public ResponseResult ${table.entityPath}PageList(${entity} ${table.entityPath}){
         return ResultGenerator.genSuccessResult(${table.entityPath}Service.${table.entityPath}PageList(${table.entityPath}));
-    }
+        }
 
-    /**
-    * $!{table.comment}列表
-    */
-    @GetMapping("/list")
-    public ResponseResult ${table.entityPath}List(${entity} ${table.entityPath}) {
+/**
+ * $!{table.comment}列表
+ */
+@GetMapping("/list")
+public ResponseResult ${table.entityPath}List(${entity} ${table.entityPath}){
         return ResultGenerator.genSuccessResult(${table.entityPath}Service.${table.entityPath}List(${table.entityPath}));
-    }
+        }
 
-    /**
-     * 获取$!{table.comment}详情
-     */
-    @GetMapping("/{#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end}")
-    public ResponseResult ${table.entityPath}Info(@PathVariable #foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end) {
+/**
+ * 获取$!{table.comment}详情
+ */
+@GetMapping("/{#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end}")
+public ResponseResult ${table.entityPath}Info(@PathVariable #foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType} ${field.propertyName}#end#end){
         return ResultGenerator.genSuccessResult(${table.entityPath}Service.${table.entityPath}Info(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}#end#end));
-    }
+        }
 
-    /**
-     * 新增$!{table.comment}
-     */
-    @PostMapping
-    public ResponseResult save${entity}(@RequestBody ${entity} ${table.entityPath}) {
-        ${table.entityPath}Service.save${entity}(${table.entityPath});
+/**
+ * 新增$!{table.comment}
+ */
+@PostMapping
+public ResponseResult save${entity}(@RequestBody ${entity} ${table.entityPath}){
+    ${table.entityPath}Service.save${entity}(${table.entityPath});
         return ResultGenerator.genSuccessResult();
-    }
+        }
 
-    /**
-     * 修改$!{table.comment}
-     */
-    @PutMapping
-    public ResponseResult update${entity}(@RequestBody ${entity} ${table.entityPath}) {
-        ${table.entityPath}Service.update${entity}(${table.entityPath});
+/**
+ * 修改$!{table.comment}
+ */
+@PutMapping
+public ResponseResult update${entity}(@RequestBody ${entity} ${table.entityPath}){
+    ${table.entityPath}Service.update${entity}(${table.entityPath});
         return ResultGenerator.genSuccessResult();
-    }
+        }
 
-    /**
-     * 删除$!{table.comment}
-     */
-    @DeleteMapping("/{#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}S#end#end}")
-    public ResponseResult remove${entity}ByIds(@PathVariable #foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType}[]${field.propertyName}s#end#end) {
-        ${table.entityPath}Service.remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}s#end#end);
+/**
+ * 删除$!{table.comment}
+ */
+@DeleteMapping("/{#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}S#end#end}")
+public ResponseResult remove${entity}ByIds(@PathVariable #foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyType}[]${field.propertyName}s#end#end) {
+    ${table.entityPath}Service.remove${entity}ByIds(#foreach($field in ${table.fields})#if(${field.keyFlag})${field.propertyName}s#end#end);
         return ResultGenerator.genSuccessResult();
-    }
-}
+        }
+        }
 
 #end

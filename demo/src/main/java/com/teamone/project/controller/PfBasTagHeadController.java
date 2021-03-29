@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author wzy
@@ -36,8 +37,8 @@ public class PfBasTagHeadController {
     }
 
     /**
-    * 列表
-    */
+     * 列表
+     */
     @GetMapping("/list")
     public ResponseResult pfBasTagHeadList(PfBasTagHead pfBasTagHead) {
         return ResultGenerator.genSuccessResult(pfBasTagHeadService.pfBasTagHeadList(pfBasTagHead));
@@ -73,7 +74,7 @@ public class PfBasTagHeadController {
      * 删除
      */
     @DeleteMapping("/{tagHeadIdS}")
-    public ResponseResult removePfBasTagHeadByIds(@PathVariable String[]tagHeadIds) {
+    public ResponseResult removePfBasTagHeadByIds(@PathVariable String[] tagHeadIds) {
         pfBasTagHeadService.removePfBasTagHeadByIds(tagHeadIds);
         return ResultGenerator.genSuccessResult();
     }
