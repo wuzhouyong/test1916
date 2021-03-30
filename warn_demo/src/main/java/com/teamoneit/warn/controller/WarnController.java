@@ -72,7 +72,7 @@ public class WarnController {
             }
             retu += total;
             try {
-                Thread.sleep(1 * 5 * 1000);//睡眠5秒
+                Thread.sleep(1 * 1000);//睡眠1秒
             } catch (InterruptedException e) {
                 log.error(e.getMessage());
             }
@@ -154,7 +154,7 @@ public class WarnController {
             }
             retu += total;
             try {
-                Thread.sleep(1 * 5 * 1000);//睡眠5秒
+                Thread.sleep(1 * 1000);//睡眠秒
             } catch (InterruptedException e) {
                 log.error(e.getMessage());
             }
