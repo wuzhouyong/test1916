@@ -203,9 +203,10 @@ public class WarnController {
         try {
             Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", "Bearer " + token);
-            headers.put("Content-Type", "application/json");
+            headers.put("Content-Type", "application/json;UTF-8");
             headers.put("Accept-Language", "zh-CN,zh;q=0.9");
             headers.put("Accept-Encoding", "gzip, deflate, br");
+            headers.put("Accept-Charset", "UTF-8");
             String s = JSON.toJSONString(status);//将数据格式变成字符串的格式,也就是参数的格式
             string = HttpClientUtils.sendPut("http://19.104.43.66:8014/api/leanworkflow/v1/task-status", headers, s);
             file_response.warn("修改状态信息:" + string);
